@@ -1,76 +1,65 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, {Component} from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
-import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Head from './components/Head';
+import TodoInput from './components/TodoInput';
+import TodoSubmit from './components/TodoSubmit';
+// import ToDoItem from './components/ToDoItem';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+let todoIndex = 0;
 
-const App = () => {
-  return (
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your1</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
-  );
-};
+class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      inputValue: '',
+      todos: [],
+      type: 'All',
+    };
+  }
+
+  inputChange = inputValue => {
+    this.setState({inputValue});
+  };
+
+  submitToDo = () => {
+    if (this.state.inputValue === '') {
+      return;
+    }
+    const todo = {
+      title: this.state.inputValue,
+      todoIndex,
+      complete: false,
+    };
+
+    todoIndex++;
+
+    const todoList = [...this.state.todos, todo];
+
+    this.setState({
+      todos: todoList,
+      inputValue: '',
+    });
+  };
+
+  render() {
+    const {inputValue} = this.state;
+
+    return (
+      <View>
+        <Head />
+        <TodoInput
+          inputValue={inputValue}
+          inputChange={text => this.inputChange(text)}
+        />
+        <TodoSubmit submitToDo={this.submitToDo} />
+        <Text style={styles.sectionTitle}>See Your1</Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   scrollView: {
