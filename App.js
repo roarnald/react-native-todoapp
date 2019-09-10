@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import Head from './components/Head';
 import TodoInput from './components/TodoInput';
 import TodoSubmit from './components/TodoSubmit';
-// import ToDoItem from './components/ToDoItem';
+import TodoList from './components/TodoList';
 
 let todoIndex = 0;
 
@@ -44,8 +44,25 @@ class App extends Component {
     });
   };
 
+  deleteTodo = todoIndex => {
+    let {todos} = this.state;
+    todos = todos.filter(todo => todo.todoIndex !== todoIndex);
+    this.setState({todos});
+  };
+
+  toggleComplete = todoIndex => {
+    let todos = this.state.todos;
+    todos.forEach(todo => {
+      if (todo.todoIndex === todoIndex) {
+        todo.complete = !todo.complete;
+      }
+    });
+
+    this.setState({todos});
+  };
+
   render() {
-    const {inputValue} = this.state;
+    const {todos, type, inputValue} = this.state;
 
     return (
       <View>
@@ -55,7 +72,12 @@ class App extends Component {
           inputChange={text => this.inputChange(text)}
         />
         <TodoSubmit submitToDo={this.submitToDo} />
-        <Text style={styles.sectionTitle}>See Your1</Text>
+        <TodoList
+          toggleComplete={this.toggleComplete}
+          deleteTodo={this.deleteTodo}
+          todos={todos}
+          type={type}
+        />
       </View>
     );
   }
