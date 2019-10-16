@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     textAlign: 'center',
-    fontSize: 22,
+    fontSize: 20,
     color: '#403501',
     fontWeight: '100',
   },
