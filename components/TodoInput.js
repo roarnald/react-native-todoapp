@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
     paddingTop: 5,
-    shadowColor: '#000000',
+    shadowColor: '#000',
   },
   input: {
     height: 60,
