@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   todoContainer: {
     marginLeft: 20,
     marginRight: 20,
-    padding: 5,
+    padding: 6,
     backgroundColor: '#ddd',
     flexDirection: 'row',
   },
