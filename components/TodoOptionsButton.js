@@ -20,7 +20,7 @@ const TodoOptionsButton = ({onPress, complete, name}) => (
 const styles = StyleSheet.create({
   button: {
     alignSelf: 'flex-end',
-    padding: 7,
+    padding: 8,
     backgroundColor: '#444',
     borderWidth: 1,
     borderRadius: 4,
